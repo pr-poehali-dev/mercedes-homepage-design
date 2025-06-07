@@ -1,12 +1,58 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState, useEffect } from "react";
+import Header from "@/components/Header";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import HeroSection from "@/components/HeroSection";
+import ModelsSection from "@/components/ModelsSection";
+import ServicesSection from "@/components/ServicesSection";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const Index = () => {
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    // Check for saved theme preference or default to light mode
+    const savedTheme = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)",
+    ).matches;
+
+    if (savedTheme === "dark" || (!savedTheme && prefersDark)) {
+      setIsDark(true);
+      document.documentElement.classList.add("dark");
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const newTheme = !isDark;
+    setIsDark(newTheme);
+
+    if (newTheme) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  };
+
+  const breadcrumbItems = [{ label: "Главная" }];
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4 color-black text-black">Добро пожаловать!</h1>
-        <p className="text-xl text-gray-600">тут будет отображаться ваш проект</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <Header toggleTheme={toggleTheme} isDark={isDark} />
+
+      <main>
+        <HeroSection />
+
+        <div className="container mx-auto px-4 pt-8">
+          <Breadcrumbs items={breadcrumbItems} />
+        </div>
+
+        <ModelsSection />
+        <ServicesSection />
+      </main>
+
+      <ScrollToTop />
     </div>
   );
 };
