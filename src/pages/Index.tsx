@@ -4,6 +4,9 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import HeroSection from "@/components/HeroSection";
 import ModelsSection from "@/components/ModelsSection";
 import ServicesSection from "@/components/ServicesSection";
+import FeaturesSection from "@/components/FeaturesSection";
+import NewsSection from "@/components/NewsSection";
+import ContactSection from "@/components/ContactSection";
 import ScrollToTop from "@/components/ScrollToTop";
 
 const Index = () => {
@@ -50,6 +53,9 @@ const Index = () => {
 
         <ModelsSection />
         <ServicesSection />
+        <FeaturesSection />
+        <NewsSection />
+        <ContactSection />
       </main>
 
       <ScrollToTop />
